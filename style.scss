@@ -1,0 +1,309 @@
+$body: #d8d8d8;
+$menu-color: #242424;
+$highlight-color: #858585;
+
+:root {
+    --body: #{$body};
+    --menu-color: #{$menu-color};
+    --highlight-color: #{$highlight-color};
+}
+
+* {
+    user-select: none;
+}
+
+*:focus {
+    outline: none;
+    fill: var(--highlight-color);
+}
+
+body, html {
+	color: var(--menu-color);
+	font-family: Calibri;
+	width: 100vw;
+	min-height: 100vh; 
+	margin: 0;
+	padding: 0;
+	background-color: var(--body);
+}
+
+nav {
+    z-index: 100;
+	user-select: none;
+	position: fixed;
+	height: 100vh;
+	width: 120px;
+	display: flex;
+	box-sizing: content-box;
+	overflow: hidden;
+	transition: 200ms;
+
+    .menu-pointer {
+        transform: translateX(-100%);
+        width: 5px;
+        height: 120px;
+        background-color: var(--menu-color);
+        transition: 150ms;
+        opacity: 0;
+    }
+
+    ul {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        height: auto;
+        list-style: none;
+        padding: 0;
+
+        li {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border-left: solid 5px transparent;	
+            cursor: pointer;
+            
+            svg {
+                width: 98%;
+                height: 98%;
+                fill: $menu-color;
+                transition: 90ms;  
+            }
+        }
+
+        li:hover svg, li:focus svg{
+            fill: var(--highlight-color);
+	        color: var(--highlight-color);
+        }
+    }
+}
+
+nav.horizontal {
+    height: 10vh;
+	width: 100vw;
+	bottom: 0;
+	left: 0;
+
+    ul {
+        display: flex;
+        justify-content: space-evenly;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        list-style: none;
+        padding: 0; 
+
+        li {
+            display: inline-block;
+            width: 33%;
+            height: 60%;
+            margin-bottom: 0;
+            box-sizing: border-box;
+            border-bottom: solid 5px transparent;	 
+        }
+    }
+
+    .menu-pointer {
+        position: absolute;
+        width: 120px;
+        height: 5px;
+        background-color: var(--menu-color);
+        transition: 150ms;
+        opacity: 0;
+    }
+}
+
+.content {
+    font-size: 2rem;
+	width: 100vw;
+	min-height: 100vh;
+	box-sizing: border-box;
+	padding: 3rem 1rem 1rem calc(120px + 1em);
+	color: var(--highlight-color);
+
+    article {
+        max-width: 90vw;
+        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        padding: 2rem 2rem;
+        background-color: rgba(255,255,255, 0.3);
+        border-radius: 10px; 
+    }
+
+    article.profile {
+        position: relative;
+        padding: 2rem 1rem;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        align-items: center;
+
+        table {
+            width: 80%;
+            font-size: 140%;
+            display: flex;
+            justify-content: center;
+
+            td.name {
+                font-size: 1.5em;
+                font-weight: bold;
+                color: var(--menu-color);
+                font-stretch: expanded;
+                letter-spacing: 0.1rem;
+            }
+        }
+    }
+
+    h1 {
+        margin: 0px;
+        height: 120px;
+        width: 100%;
+        line-height: 120px;
+        color: $menu-color;
+    }
+
+    hr {
+        margin: 0px 0px 1rem 0px;
+        width: 20vw;
+        border-left-color: transparent;
+        border-top-color: var(--menu-color);
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        opacity: 1;
+        border-width: 5px;
+    }
+
+    div.profile-photo {
+        margin-right: 1.5rem;
+        width: 25%;
+    }
+
+    img.profile-photo {
+        width: 100%;
+        border-radius: 100%;
+        border: 3px solid var(--menu-color);
+        clip-path: circle(60%);
+        background-color: var(--highlight-color);
+    }
+}
+
+.content.vertical {
+    font-size: 3rem;
+	width: 85vw;
+	height: 100vh;
+	padding: 2rem 1rem 1rem 1rem;
+	margin: auto;
+
+    article {
+        max-width: 90vw;
+        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        padding: 2rem 2rem;
+        background-color: rgba(255,255,255, 0.3);
+        border-radius: 10px;
+        margin: auto;
+    }
+
+    article.profile {
+        position: relative;
+        padding: 2rem 1rem;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+
+        table {
+            width: 80%;
+            font-size: 100%;
+            display: table;
+
+            td.name {
+                font-size: 1.2em;
+                font-weight: initial;
+                color: $menu-color;
+                font-stretch: expanded;
+                letter-spacing: initial;
+            }
+        }
+    }
+
+    hr {
+        border-left-color: transparent;
+        border-top-color: var(--menu-color);
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        opacity: 1;
+        border-width: 5px;
+        margin: auto;
+        width: 80vw;
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        text-align: center;
+        width: auto;
+        margin: auto;
+    }
+
+    div.profile-photo {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        margin: 0; 
+    }
+
+    img.profile-photo {
+        width: 45%;
+        border-radius: 100%;
+        border: 3px solid var(--menu-color);
+        clip-path: circle(60%);
+        background-color: var(--highlight-color);
+    }
+}
+
+.loader {
+    z-index: 99;
+	width: 100vw;
+	height: 100vh;
+	visibility: visible;
+	background-color: var(--body);
+	position: absolute;
+
+    svg {
+        fill: var(--menu-color);
+        width: 20vw;
+        height: 20vw;
+        position: fixed;
+        left: 50%;
+        top:50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.color-picker {
+    visibility: hidden;
+	position: fixed;
+	display: absolute;
+	bottom: 0;
+	right: 0;
+	transform: translateX(-50%);
+	display: block;
+
+    input {
+        display: block;
+        width: 20%;
+        height: 60%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+}
+
