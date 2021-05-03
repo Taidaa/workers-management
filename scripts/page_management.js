@@ -75,10 +75,10 @@ function loadPage(href, h){
 	const nav_items = document.querySelectorAll("nav ul li");
 	switch (path) {
 		case "/":
-			loadPage("page/profile.txt", "Профиль");
+			loadPage("page/profile.html", "Профиль");
 			break;
 		case "/Профиль":
-			loadPage("page/profile.txt", "Профиль");
+			loadPage("page/profile.html", "Профиль");
 			break;
 		case "/Список группы":
 			nav_items[1].click();
