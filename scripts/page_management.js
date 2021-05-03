@@ -1,9 +1,16 @@
+/**
+ * Set loader visibility
+ * @param {bool} visible Loader visibility param
+ */
 function initLoader(visible) {
 	const loader = document.querySelector("div.loader");
 	let vis = visible ? "visible" : "hidden";
 	loader.style.visibility = vis;
 }
 
+/**
+ * Delete current page before opening another so they not intersect or stack on each other
+ */
 function unloadPage() {
 	let mainBlock = document.querySelectorAll("section article");
 	mainBlock.forEach((article)=> {
@@ -14,6 +21,11 @@ function unloadPage() {
 	
 }
 
+/**
+ * Dinamically
+ * @param {string} href page pattern directory/name
+ * @param {string} h page header
+ */
 function loadPage(href, h){
 	fetch(href).then(function (res) {
 		return res.text();
@@ -47,7 +59,9 @@ function loadPage(href, h){
 	})
 }
 
-
+/** 
+ * Initialize page on uri filled or page reload
+ */
 (function () {
 	let path = window.decodeURI(window.location.pathname);
 	console.log(path);
