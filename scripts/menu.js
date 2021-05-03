@@ -84,7 +84,8 @@ function pointerInit(){
 	
 	setTimeout(()=>{
 		pointer.style.opacity = 1;
-	}, 500)
+		pointerInit();
+	}, 1000)
 }
 
 // Replace pointer if page resized
