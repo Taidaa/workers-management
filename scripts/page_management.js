@@ -22,11 +22,12 @@ function unloadPage() {
 }
 
 /**
- * Dinamically
+ * Dinamically load the page
  * @param {string} href page pattern directory/name
  * @param {string} h page header
  */
 function loadPage(href, h){
+	console.clear();
 	fetch(href).then(function (res) {
 		return res.text();
 	}).then(function (html) {
@@ -47,6 +48,12 @@ function loadPage(href, h){
 
 			// Change Title
 			document.title = "Дежурные | " + h;
+
+			// Run script on the page
+			let code = document.querySelector("script#pageloaded") ?? "";
+			eval(code.text);
+
+			// Turn off loader
 			initLoader(false);
 
 			// Change URI

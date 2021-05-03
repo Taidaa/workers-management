@@ -3,4 +3,11 @@
 				<span class="name">Фамилия Имя Отчество</span>
 				<span>Группа: 612-Д9-4ПИН</span>
 				<span>Роль: Заместитель старосты</span>
+			<script id="pageloaded">
+			function init(){
+				console.log("Я родился!");
+			}
+
+			init();
+			</script>
 </article>
