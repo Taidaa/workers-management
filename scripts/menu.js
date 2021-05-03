@@ -2,7 +2,9 @@ const pointer = document.getElementsByClassName("menu-pointer")[0];
 const menuItems = document.querySelectorAll("nav ul li");
 
 
-// Event to highlight pointer when hover on active menu item
+/** 
+ * Event to highlight pointer when hover on active menu item 
+*/
 menuItems.forEach(item => {
 	item.addEventListener("mouseover", () => {
 		if (item.classList.contains("active")){
@@ -11,8 +13,9 @@ menuItems.forEach(item => {
 	})
 })
 
-// Event to set initial color to
-// pointer when hover on active menu item
+/**  Event to set initial color to
+*    pointer when hover on active menu item
+*/
 menuItems.forEach(item => {
 	item.addEventListener("mouseout", () => {
 		if (item.classList.contains("active")){
@@ -21,6 +24,11 @@ menuItems.forEach(item => {
 	})
 })
 
+/**
+ * Programmatically click on the menu icon that is got through parameter
+ * @param {Node} elem 
+ * @returns {void}
+ */
 function selectMenu(elem){
 	if (elem.classList.contains("active"))
 	{
@@ -40,6 +48,11 @@ function selectMenu(elem){
 	}
 }
 
+/**
+ * Function that finds where to put pointer
+ * that is placed near icon of loaded page
+ * in the sidebar menu
+ */
 function pointerInit(){ 
 	let horizontal = false;
 	// Changing layout of menu
@@ -74,9 +87,11 @@ function pointerInit(){
 	}, 500)
 }
 
+// Replace pointer if page resized
 window.addEventListener("resize", function (e) {
 	// Get pointer on right position on resize
 	setTimeout(pointerInit, 300)
 })
 
+// Initialize pointer on loaded page
 pointerInit();
