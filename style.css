@@ -1,0 +1,274 @@
+:root{
+	--menu-color:  #d72638;
+	--highlight-color: #E3D8F1;
+	--menu-bg: transparent;
+	--body: #140f2d;
+	--body: #22181C;
+	--menu-color:  #F45B69;
+	--highlight-color: #ffe6e8;
+}
+
+* {
+	user-select: none;
+}
+
+*:focus{
+	outline: none;
+	fill: var(--highlight-color);
+}
+
+body, html {
+	overflow: hidden;
+	color: var(--menu-color);
+	font-family: Calibri;
+	width: 100vw;
+	min-height: 100vh; 
+	margin: 0;
+	padding: 0;
+	background-color: var(--body);
+}
+
+nav {
+	z-index: 100;
+	user-select: none;
+	position: fixed;
+	height: 100vh;
+	width: 120px;
+	display: flex;
+	box-sizing: content-box;
+	overflow: hidden;
+	background-color: var(--menu-bg);
+	transition: 200ms;
+}
+
+
+
+nav .menu-pointer {
+	transform: translateX(-100%);
+	width: 5px;
+	height: 120px;
+	background-color: var(--menu-color);
+	transition: 150ms;
+	opacity: 0;
+}
+
+nav.horizontal .menu-pointer {
+	position: absolute;
+	width: 120px;
+	height: 5px;
+	background-color: var(--menu-color);
+	transition: 150ms;
+	opacity: 0;
+}
+
+nav.horizontal {
+	height: 10vh;
+	width: 100vw;
+	bottom: 0;
+	left: 0;
+}
+
+nav.horizontal ul{
+	display: flex;
+	justify-content: space-evenly;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	height: 100%;
+	list-style: none;
+	padding: 0;
+}
+
+nav.horizontal ul li{
+	display: inline-block;
+	width: 33%;
+	height: 60%;
+	margin-bottom: 0;
+	box-sizing: border-box;
+	border-bottom: solid 5px transparent;	
+}
+
+nav ul {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+	height: auto;
+	list-style: none;
+	padding: 0;
+}
+
+nav ul li {
+	width: 120px;
+	height: 120px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	border-left: solid 5px transparent;	
+	cursor: pointer;
+}
+
+nav ul :is(li:focus, li:hover) svg{
+	fill: var(--highlight-color);
+	color: var(--highlight-color);
+}
+
+
+
+nav ul li svg {
+	width: 98%;
+	height: 98%;
+	fill: var(--menu-color);
+	transition: 90ms;
+}
+
+article {
+	max-width: 75vw;
+	box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+	padding: 2rem 2rem;
+	background-color: rgba(255,255,255, 0.006);
+}
+
+.content.vertical {
+	font-size: 3rem;
+	width: 85vw;
+	height: 100vh;
+	padding: 2rem 1rem 1rem 1rem;
+	margin: auto;
+}
+
+.content {
+	font-size: 2rem;
+	width: 100vw;
+	min-height: 100vh;
+	box-sizing: border-box;
+	padding: 6rem 1rem 1rem calc(120px + 6rem);
+	color: var(--highlight-color);
+}
+
+.content h1{
+	margin: 0px;
+	height: 120px;
+	width: 100%;
+	line-height: 120px;
+	color: var(--menu-color);
+	text-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+}
+
+
+hr {
+	margin: 0px 0px 1rem 0px;
+	width: 20vw;
+	border-left-color: transparent;
+	border-top-color: var(--menu-color);
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	opacity: 1;
+	border-width: 5px;
+}
+
+article.profile {
+	position: relative;
+	padding: 2rem 1rem;
+	width: 65vw;
+	height: auto;
+	float: left;
+	display: flex;
+	vertical-align: text-top;
+	box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+}
+
+.content.vertical article.profile {
+	left:50%;
+	transform: translateX(-50%);
+	padding: 2rem 1rem;
+	width: 65vw;
+	height: auto;
+	float: left;
+	display: flex;
+	vertical-align: text-top;
+	box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+}
+
+.content.vertical h1 {
+	text-align: center;
+	width: auto;
+	margin: auto;
+}
+
+.content.vertical hr {
+	width: 80vw;
+	margin: auto;
+}
+
+img.profile-photo{
+
+	width: 20%;
+	height: 100%;
+	border-radius: 100%;
+	border: 3px solid var(--menu-color);
+	clip-path: circle(60%);
+	background-color: var(--highlight-color);
+	box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+}
+
+
+div.info {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	vertical-align: middle;
+	align-content: center;
+	padding: 2rem 1.3rem;
+	width: 40%;
+}
+div.info span {
+	flex-basis: 100%;
+	height: 0;
+}
+
+span.name {
+	width: 100%;
+	font-size: 1.5em;
+	color: var(--menu-color)
+}
+
+div.loader {
+	z-index: 99;
+	width: 100vw;
+	height: 100vh;
+	visibility: visible;
+	background-color: var(--body);
+	position: absolute;
+	
+}
+
+div.loader svg {
+	fill: var(--menu-color);
+	width: 20vw;
+	height: 20vw;
+	position: fixed;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%, -50%);
+}
+
+.color-picker {
+	visibility: hidden;
+	position: fixed;
+	display: absolute;
+	bottom: 0;
+	right: 0;
+	transform: translateX(-50%);
+	display: block;
+}
+
+.color-picker input{
+	display: block;
+	width: 20%;
+	height: 60%;
+	border: none;
+	outline: none;
+	background-color: transparent;
+}

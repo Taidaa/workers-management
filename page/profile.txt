@@ -1,0 +1,6 @@
+<article class="profile">
+			<img class="profile-photo" src="img/profile.svg">
+				<span class="name">Фамилия Имя Отчество</span>
+				<span>Группа: 612-Д9-4ПИН</span>
+				<span>Роль: Заместитель старосты</span>
+</article>

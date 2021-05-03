@@ -1,0 +1,3 @@
+<article class="group">
+	Some text in'nere
+</article>
