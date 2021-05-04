@@ -1,7 +1,7 @@
 $body: #d8d8d8;
 $menu-color: #242424;
 $highlight-color: #858585;
-
+$box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
 :root {
     --body: #{$body};
     --menu-color: #{$menu-color};
@@ -126,8 +126,8 @@ nav.horizontal {
 	color: var(--highlight-color);
 
     article {
-        max-width: 87vw;
-        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        max-width: calc(100vw - 400px);
+        box-shadow: $box-shadow;
         padding: 2rem 2rem;
         background-color: rgba(255,255,255, 0.3);
         border-radius: 10px; 
@@ -136,12 +136,21 @@ nav.horizontal {
     article.profile {
         position: relative;
         padding: 2rem 1rem;
-        height: auto;
+        height: 40vh;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        box-shadow: $box-shadow;
         align-items: center;
+        box-sizing: content-box;
+
+        button {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 1.5rem 1rem;
+        }
 
         table {
             width: 80%;
@@ -190,6 +199,53 @@ nav.horizontal {
         clip-path: circle(60%);
         background-color: var(--highlight-color);
     }
+
+    .loginWnd {
+        @extend %pagewrapper;
+        background-color: rgba(0,0,0,0.2);
+        .inputform {
+            z-index: 200;
+            width: 40vw;
+            min-height: 40vh;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: $box-shadow;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em 1rem 1rem 1rem;
+
+            input[type="text"], input[type="password"]{
+                font-size: 1.2em;
+                font-family: Calibri;
+                font-weight: lighter;
+                color: var(--highlight-color);
+                height: 1.1em;
+                width: 100%;
+                border: 2px solid whitesmoke;
+                padding: 0 0.5rem;
+                box-sizing: border-box;
+            }
+
+            input:active, input:focus {
+                border: var(--menu-color) solid 1px;
+            }
+
+            .closeWnd {
+                position: absolute;
+                width: auto;
+                right: 1rem;
+                top: 5px;
+                font-size: 1.5em;
+                text-align: right;
+            }
+
+            .closeWnd:hover, .closeWnd:focus {
+                font-weight: bold;
+            }
+        }
+    }
 }
 
 .content.vertical {
@@ -201,7 +257,7 @@ nav.horizontal {
 
     article {
         max-width: 90vw;
-        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        box-shadow: $box-shadow;
         padding: 2rem 2rem;
         background-color: rgba(255,255,255, 0.3);
         border-radius: 10px;
@@ -211,11 +267,12 @@ nav.horizontal {
     article.profile {
         position: relative;
         padding: 2rem 1rem;
-        height: auto;
+        height: 40vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+        box-shadow: $box-shadow;
+
 
         table {
             width: 80%;
@@ -267,6 +324,38 @@ nav.horizontal {
         clip-path: circle(60%);
         background-color: var(--highlight-color);
     }
+
+    .loginWnd {
+        @extend %pagewrapper;
+        background-color: rgba(0,0,0,0.2);
+        z-index: 100;
+
+        .inputform {
+            z-index: 200;
+            width: 80vw;
+            min-height: 20vh;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: $box-shadow;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em 1rem 1rem 1rem;
+
+            .closeWnd {
+                position: absolute;
+                width: 0;
+                font-size: 1.5em;
+                top: 0;
+                right: 2.5rem;
+            }
+
+            .closeWnd:hover, .closeWnd:focus {
+                font-weight: bold;
+            }
+        }
+    }
 }
 
 .loader {
@@ -305,5 +394,33 @@ nav.horizontal {
         outline: none;
         background-color: transparent;
     }
+}
+
+%pagewrapper {
+    z-index: 999;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+} 
+
+%button {
+    background: transparent;
+    border-radius: 20px;
+    font-size: 1em;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--highlight-color);
+}
+
+button {
+    @extend %button;
+    color: inherit;
+}
+
+button:hover, button:focus {
+    background-color: var(--menu-color);
+    border: 2px solid var(--menu-color);
+    color: var(--highlight-color);
 }
 

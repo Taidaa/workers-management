@@ -8,13 +8,39 @@
 		<tr><td>Группа:</td><td> 612-Д9-4ПИН</td></tr>
 		<tr><td>Роль:</td><td>Заместитель старосты</td></tr>
 	</table>
-
+	
+	<button onclick="login()">Войти</button>
+	<template id="loginWnd">
+				<div class="inputform">
+					<div class="closeWnd">x</div>
+					<form>
+						<label>
+							Логин:
+							<br>
+							<input type="text">
+							<br>
+						</label>
+						<label>
+							Пароль:
+							<br>
+							<input type="password">
+							<br>
+						</label>
+						<br>
+						<button>Войти</button>
+					</form>
+				</div>
+	</template>
+	
 
 	<script id="pageloaded">
-	function init(){
-		console.log("Я родился!");
-	}
-
+		
+		function init(){
+			script = document.createElement("script");
+			script.setAttribute("src", "scripts/profile.js");
+			script.setAttribute("async", "false");
+			document.head.insertBefore(script, document.head.firstElementChild);
+		}
 	init();
 	</script>
 </article>

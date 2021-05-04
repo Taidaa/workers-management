@@ -1,5 +1,6 @@
 const pointer = document.getElementsByClassName("menu-pointer")[0];
 const menuItems = document.querySelectorAll("nav ul li");
+var vertical;
 
 
 /** 
@@ -54,23 +55,22 @@ function selectMenu(elem){
  * in the sidebar menu
  */
 function pointerInit(){ 
-	let horizontal = false;
 	// Changing layout of menu
 	if (window.innerHeight > window.innerWidth){
 		document.querySelector("#sidebar").classList.add("horizontal");
 		document.querySelector("section.content").classList.add("vertical");
-		horizontal = true;	
+		vertical = true;	
 	} else {
 		document.querySelector("#sidebar").classList.remove("horizontal");
 		document.querySelector("section.content").classList.remove("vertical");
-		horizontal = false;
+		vertical = false;
 	}
 
 	// Call when the page loads to show the pointer
 	let currentPos = document.querySelector("li.active");
 	let item = currentPos.getBoundingClientRect();
 
-	if (horizontal){
+	if (vertical){
 		pointer.style.transform = `translateX(${item.left}px)`;
 		pointer.style.bottom = 0;
 		pointer.style.width = "33%";
