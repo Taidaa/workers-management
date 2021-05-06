@@ -136,36 +136,41 @@ nav.horizontal {
     article.profile {
         position: relative;
         padding: 2rem 1rem;
-        height: 40vh;
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: space-around;
         box-shadow: $box-shadow;
         align-items: center;
         box-sizing: content-box;
 
         button {
-            position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
             margin: 1.5rem 1rem;
         }
 
-        table {
-            width: 80%;
-            font-size: 140%;
+        .info {
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            text-align: center;
 
-            td.name {
-                font-size: 1.5em;
+            .group::before {
+                content: "Группа: ";
+
+            }
+
+            .role::before {
+                content: "Роль: ";
+
+            }
+            .name {
+                font-size: 1.2em;
                 font-weight: bold;
-                color: var(--menu-color);
-                font-stretch: expanded;
                 letter-spacing: 0.1rem;
             }
         }
+
+
     }
 
     h1 {
@@ -200,13 +205,13 @@ nav.horizontal {
         background-color: var(--highlight-color);
     }
 
-    .loginWnd {
+    .loginWnd, .pagewrapper, .wnd {
         @extend %pagewrapper;
         background-color: rgba(0,0,0,0.2);
-        .inputform {
+        transition: 250ms;
+        .inputform, .wnd {
             z-index: 200;
             width: 40vw;
-            min-height: 40vh;
             background-color: white;
             border-radius: 10px;
             box-shadow: $box-shadow;
@@ -214,9 +219,9 @@ nav.horizontal {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 2em 1rem 1rem 1rem;
+            padding: 2.8em 1rem 1rem 1rem;
 
-            input[type="text"], input[type="password"]{
+            input[type="text"], input[type="password"], input[type="email"]{
                 font-size: 1.2em;
                 font-family: Calibri;
                 font-weight: lighter;
@@ -226,6 +231,22 @@ nav.horizontal {
                 border: 2px solid whitesmoke;
                 padding: 0 0.5rem;
                 box-sizing: border-box;
+            }
+
+            span, a {
+                text-decoration: none;
+                font-size: 1.4rem;
+                font-family: inherit;
+                color: var(--highlight-color);
+            }
+
+            a {
+                font-weight: bold;
+            }
+
+            a:hover, a:focus {
+                text-decoration: underline;
+                cursor: pointer;
             }
 
             input:active, input:focus {
@@ -239,6 +260,7 @@ nav.horizontal {
                 top: 5px;
                 font-size: 1.5em;
                 text-align: right;
+                cursor: pointer;
             }
 
             .closeWnd:hover, .closeWnd:focus {
@@ -251,7 +273,7 @@ nav.horizontal {
 .content.vertical {
     font-size: 3rem;
 	width: 85vw;
-	height: 100vh;
+	min-height: 110vh;
 	padding: 2rem 1rem 1rem 1rem;
 	margin: auto;
 
@@ -267,26 +289,10 @@ nav.horizontal {
     article.profile {
         position: relative;
         padding: 2rem 1rem;
-        height: 40vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         box-shadow: $box-shadow;
-
-
-        table {
-            width: 80%;
-            font-size: 100%;
-            display: table;
-
-            td.name {
-                font-size: 1.2em;
-                font-weight: initial;
-                color: $menu-color;
-                font-stretch: expanded;
-                letter-spacing: initial;
-            }
-        }
     }
 
     hr {
@@ -325,12 +331,12 @@ nav.horizontal {
         background-color: var(--highlight-color);
     }
 
-    .loginWnd {
+    .loginWnd, .pagewrapper {
         @extend %pagewrapper;
         background-color: rgba(0,0,0,0.2);
         z-index: 100;
 
-        .inputform {
+        .inputform, .wnd {
             z-index: 200;
             width: 80vw;
             min-height: 20vh;
@@ -403,7 +409,12 @@ nav.horizontal {
     height: 100vh;
     left: 0;
     top: 0;
+    background-color: rgba(0,0,0,0.3);
 } 
+
+.pagewrapper{
+    @extend %pagewrapper;
+}
 
 %button {
     background: transparent;
@@ -411,16 +422,51 @@ nav.horizontal {
     font-size: 1em;
     padding: 1rem 1.5rem;
     border: 2px solid var(--highlight-color);
+    cursor: pointer;
 }
+
 
 button {
     @extend %button;
     color: inherit;
+    transition: 230ms;
 }
 
 button:hover, button:focus {
-    background-color: var(--menu-color);
-    border: 2px solid var(--menu-color);
-    color: var(--highlight-color);
+    background-color: var(--highlight-color);
+    border: 2px solid var(--highlight-color);
+    color: rgba(255,255,255, 0.78);
 }
 
+%window {
+    z-index: 200;
+    width: 40vw;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2.8em 1rem 1rem 1rem;
+}
+
+.wnd {
+    @extend %window;
+}
+
+.wnd.vertical {
+    z-index: 200;
+    width: 80vw;
+    min-height: 20vh;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em 1rem 1rem 1rem;
+
+    
+}

@@ -2,6 +2,11 @@ const pointer = document.getElementsByClassName("menu-pointer")[0];
 const menuItems = document.querySelectorAll("nav ul li");
 var vertical;
 
+function isVertical(){
+	return window.innerHeight > window.innerWidth;
+}
+
+window.isVertical = isVertical;
 
 /** 
  * Event to highlight pointer when hover on active menu item 
@@ -56,7 +61,7 @@ function selectMenu(elem){
  */
 function pointerInit(){ 
 	// Changing layout of menu
-	if (window.innerHeight > window.innerWidth){
+	if (isVertical()){
 		document.querySelector("#sidebar").classList.add("horizontal");
 		document.querySelector("section.content").classList.add("vertical");
 		vertical = true;	

@@ -3,17 +3,19 @@
 		<img class="profile-photo" src="img/profile.svg">
 	</div>
 	
-	<table cols="2" >
-		<tr><td colspan="2" class="name">Фамилия Имя Отчество</td></tr></thead>
-		<tr><td>Группа:</td><td> 612-Д9-4ПИН</td></tr>
-		<tr><td>Роль:</td><td>Заместитель старосты</td></tr>
-	</table>
+	<div class="info">
+		<div class="name" style="">Фамилия Имя Отчество</div>
+		<div class="group">612-Д9-4ПИН</div>
+		<div class="role">Заместитель старосты</div>
+		<button onclick="login()">Войти</button>
+	</div>
 	
-	<button onclick="login()">Войти</button>
+	
 	<template id="loginWnd">
 				<div class="inputform">
+					<div style="position: absolute; top: 10px;left: 1rem; font-weight: bold;font-size: 1.3em;">Вход</div>
 					<div class="closeWnd">x</div>
-					<form>
+					<form onsubmit="return false">
 						<label>
 							Логин:
 							<br>
@@ -28,6 +30,7 @@
 						</label>
 						<br>
 						<button>Войти</button>
+						<span>Не можете войти? <a onclick="register();return false">Зарегестрироваться</a> или <a href="#">сменить пароль</a></span>
 					</form>
 				</div>
 	</template>
