@@ -402,6 +402,14 @@ nav.horizontal {
     }
 }
 
+#todolist {
+    border: none;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
 %pagewrapper {
     z-index: 999;
     position: fixed;
@@ -467,6 +475,5 @@ button:hover, button:focus {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2em 1rem 1rem 1rem;
-
-    
 }
+
