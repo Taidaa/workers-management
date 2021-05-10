@@ -70,12 +70,25 @@
 	
 	</section>
 
-	<iframe src="page/todo.html" height='600' width="600" style="position:fixed; top: 0;height: 600px;width: 600px" id='todolist'></iframe>
+	<iframe src="page/todo.html" id='todolist' height='32'></iframe>
 	<!-- END OF CONTENT -->
 
 	
 	<script type="text/javascript" src="scripts/menu.js"></script>
 	<script type="text/javascript" src="scripts/page_management.js"></script>
+	<script>
+		this.ToggleTODO = function (){
+			const frame = document.querySelector('iframe');
+			frame.classList.toggle('hidden');
+
+			if (!frame.classList.contains('hidden')){
+				frame.contentDocument.querySelector('html').style.overflow = "hidden";
+				frame.contentWindow.scrollTo({top: 0, behavior: 'smooth'});
+			} else {
+				frame.contentDocument.querySelector('html').style.overflow = "";
+			}
+		}
+	</script>
 </body>
 
 </html>

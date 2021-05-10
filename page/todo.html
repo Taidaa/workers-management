@@ -1,19 +1,22 @@
-<html>
+<html style="overflow: hidden;">
     <head>
     </head>
     <body>
         <style>
+            ::-webkit-scrollbar{
+                width: 0;
+                background: transparent;
+            }
+
             body, html {
                 margin: 0;
                 padding: 0;
                 font-size: 2rem;
                 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
                 height: auto;
-                background-color: rgba(0, 0, 0, 0.61);
                 color: white;
                 text-shadow: wheat 0px 0px 3px;
                 zoom: 65%;
-                
             }
 
             button, a, input {
@@ -197,6 +200,18 @@
 
             fieldset {
                 border: none;
+                padding: 2rem 0rem;
+            }
+            
+            legend {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                text-align: center;
+                z-index: 999;
+                background-color: rgba(0, 0, 0, 0.5);
+                border-radius: 30px 30px 0px 0px;
+                user-select: none;
             }
             
             button {
@@ -208,12 +223,13 @@
                 position: relative;
                 text-align: center;
                 margin-top: 1.5rem;
+                text-shadow: black 0px 0px 3px;
             }
         </style>
         <fieldset>
 
             <!-- THIS IS THE MAIN CONTENT -->
-            <legend>TODO:</legend>
+            <legend style="cursor: pointer; text-shadow: black 0px 0px 3px;" onclick="toggleVisibility()">TODO:</legend>
             <ul id="classlist">
                 <li id="tasksample" class="list-item">
                     <button class="delete-task"></button>
@@ -369,6 +385,10 @@
                         }, 4000);
                     }
                 });
+            }
+
+            function toggleVisibility(){
+                window.parent.ToggleTODO();
             }
 
             (function (){
