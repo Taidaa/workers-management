@@ -74,23 +74,23 @@ function register() {
 
     let form = document.createElement("form");
     form.innerHTML =
-    `<form action="register.php" target="_blank" method="POST">
+    `<form action="php/register.php" target="_self" method="POST">
         <label>
             E-mail:
             <br>
-            <input type="email">
+            <input type="email" name="email">
             <br>
         </label>
         <label>
             Логин:
             <br>
-            <input type="text">
+            <input type="text" name="login">
             <br>
         </label>
         <label>
             Пароль:
             <br>
-            <input type="password">
+            <input type="password" name="password">
             <br>
         </label>
         <label>
@@ -98,6 +98,18 @@ function register() {
             <br>
             <input type="password">
             <br>
+        </label>
+        <label>
+            Учебное учереждение:
+            <br>
+            <input list="inst" name="inst" class="inst" placeholder="Поиск.." onclick="fetchInst()" onchange="fetchGroups()">
+            <datalist id="inst"></datalist>
+        </label>
+        <label>
+            Группа:
+            <br>
+            <input list="groups" name="group" placeholder="Поиск.." class="groups">
+            <datalist id="groups"></datalist>
         </label>
         <br>
         <button style="left: 50%;
@@ -133,7 +145,7 @@ function register() {
 function FormValidate(form){
     form = form.parentNode;
     form.setAttribute("method", "POST");
-    form.setAttribute("target", "_blank");
+    form.setAttribute("target", "_self");
     form.setAttribute("action", "/php/register.php");
 
     form.onsubmit = function (e) {e.preventDefault();};
@@ -142,17 +154,98 @@ function FormValidate(form){
     let name = form.querySelector('input[type="text"]');
     let pwd = form.querySelector('input[type="password"]');
     let pwd_ = form.querySelectorAll('input[type="password"]')[1];
+    let inst = form.querySelector('input.inst');
+    let group = form.querySelector('input.groups');
     let infospan = form.querySelector(".infospan");
 
     infospan.style = "color: red; width: 100%; text-align: center;margin-top: 1rem";
 
 
-    if (pwd.value != "" && name.value != "" && email.value != "" && pwd.value != "" && pwd_.value != "") {
-        if (pwd.value.length < 5) {
-            infospan.innerText = "* Пароль должен содержать не менее 5 символов!";
-        } else if (pwd.value !== pwd_.value){
-            infospan.innerText = "* Пароли несовпадают!";
-        } else {infospan.style.color = "green"; infospan.innerText = "Форма подтверждена!"; form.onsubmit = ()=>true}
+    if (pwd.value != ""     && 
+        name.value != ""    && 
+        email.value != ""   && 
+        pwd.value != ""     && 
+        pwd_.value != ""    && 
+        inst.value != ""    &&
+        group.value != ""
+        ) {
+            if (!validateDatalist(inst)){
+                infospan.innerText = "* Такого учереждения в списке нет!";
+                return
+            }
+            if (!validateDatalist(group)){
+                infospan.innerText = "* Такой группы в списке нет!";
+                return
+            }
+            
+
+            if (pwd.value.length < 5) {
+                infospan.innerText = "* Пароль должен содержать не менее 5 символов!";
+            } else if (pwd.value !== pwd_.value){
+                infospan.innerText = "* Пароли несовпадают!";
+            } else {infospan.style.color = "green"; infospan.innerText = "Форма подтверждена!"; form.onsubmit = ()=>true}
     } else {infospan.innerText = "* Не все поля заполнены!";}
     
+
+    function validateDatalist(input){
+        var o = [].map.call(input.list.options, opt => opt.value);
+        var opts = o.reduce((result, v) => (result[v.toUpperCase()] = v, result), {});
+        var value = input.value.toUpperCase();
+        if (opts[value]) {
+            this.value = opts[value];
+            return true;
+        } else {
+            this.value = '';
+            return false;
+        }
+    }
+}
+
+function fetchInst(){
+    const datalist = document.querySelector("datalist#inst");
+    if (datalist.childElementCount == 0){
+        fetch('/json/institutions.json')
+        .then((res)=>{
+            return res.text();
+        })
+        .then((json)=>{
+            let institutions = JSON.parse(json).institutions;
+
+            institutions.forEach(inst => {
+                let option = document.createElement("option");
+                option.setAttribute("value", inst);
+                datalist.appendChild(option);
+            });
+        })
+    }
+}
+
+function fetchGroups(){
+    const datalist = document.querySelector("datalist#groups");
+    const institution = document.querySelector("input.inst").value;
+
+    document.querySelector("input.groups").value ="";
+
+    if (inst != ""){
+        datalist.innerHTML = "";
+        fetch('/json/groups.json')
+        .then((res)=>{
+            return res.text();
+        })
+        .then((json)=>{
+            let inst = JSON.parse(json).institutions;
+            inst.forEach(i => {
+                if (Object.keys(i)[0] == institution) {
+                    let groups = i[Object.keys(i)].groups;
+                    datalist.innerHTML = "";
+                    groups.forEach(g => {
+                        let option = document.createElement("option");
+                        option.setAttribute("value", g);
+                        datalist.appendChild(option);
+                        return
+                    })
+                }
+            })
+        })
+    }
 }

@@ -210,6 +210,8 @@ nav.horizontal {
         background-color: rgba(0,0,0,0.2);
         transition: 250ms;
         .inputform, .wnd {
+            max-height: 70vh;
+            overflow-y: scroll;
             z-index: 200;
             width: 40vw;
             background-color: white;
@@ -221,7 +223,9 @@ nav.horizontal {
             transform: translate(-50%, -50%);
             padding: 2.8em 1rem 1rem 1rem;
 
-            input[type="text"], input[type="password"], input[type="email"]{
+            
+
+            input, input[type="text"], input[type="password"], input[type="email"]{
                 font-size: 1.2em;
                 font-family: Calibri;
                 font-weight: lighter;
@@ -231,6 +235,14 @@ nav.horizontal {
                 border: 2px solid whitesmoke;
                 padding: 0 0.5rem;
                 box-sizing: border-box;
+            }
+
+            input:active, input:focus {
+                border: var(--menu-color) solid 1px;
+            }
+
+            input::placeholder {
+                color: #85858570
             }
 
             span, a {
@@ -249,10 +261,6 @@ nav.horizontal {
                 cursor: pointer;
             }
 
-            input:active, input:focus {
-                border: var(--menu-color) solid 1px;
-            }
-
             .closeWnd {
                 position: absolute;
                 width: auto;
@@ -266,6 +274,14 @@ nav.horizontal {
             .closeWnd:hover, .closeWnd:focus {
                 font-weight: bold;
             }
+
+            button {
+                margin-top: 1rem;
+            }
+        }
+
+        .inputform::-webkit-scrollbar, .wnd::-webkit-scrollbar {
+            width: 0;
         }
     }
 }

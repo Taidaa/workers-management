@@ -1,1 +1,1 @@
-{"tasks":[{"name":"New task","done":true}]}
+{"tasks":[{"name":"Доделать форму регистрации для ввода ФИО","done":false},{"name":"Шифровать пароль","done":false},{"name":"Сделать проверку логина","done":false},{"name":"Связать группу с БД","done":false},{"name":"Добавить список ролей и в форму","done":false}]}

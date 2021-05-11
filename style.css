@@ -185,6 +185,8 @@ nav.horizontal .menu-pointer {
   transition: 250ms;
 }
 .content .loginWnd .inputform, .content .loginWnd .wnd, .content .pagewrapper .inputform, .content .pagewrapper .wnd, .content .wnd .inputform, .content .wnd .wnd {
+  max-height: 70vh;
+  overflow-y: scroll;
   z-index: 200;
   width: 40vw;
   background-color: white;
@@ -196,7 +198,7 @@ nav.horizontal .menu-pointer {
   transform: translate(-50%, -50%);
   padding: 2.8em 1rem 1rem 1rem;
 }
-.content .loginWnd .inputform input[type=text], .content .loginWnd .inputform input[type=password], .content .loginWnd .inputform input[type=email], .content .loginWnd .wnd input[type=text], .content .loginWnd .wnd input[type=password], .content .loginWnd .wnd input[type=email], .content .pagewrapper .inputform input[type=text], .content .pagewrapper .inputform input[type=password], .content .pagewrapper .inputform input[type=email], .content .pagewrapper .wnd input[type=text], .content .pagewrapper .wnd input[type=password], .content .pagewrapper .wnd input[type=email], .content .wnd .inputform input[type=text], .content .wnd .inputform input[type=password], .content .wnd .inputform input[type=email], .content .wnd .wnd input[type=text], .content .wnd .wnd input[type=password], .content .wnd .wnd input[type=email] {
+.content .loginWnd .inputform input, .content .loginWnd .inputform input[type=text], .content .loginWnd .inputform input[type=password], .content .loginWnd .inputform input[type=email], .content .loginWnd .wnd input, .content .loginWnd .wnd input[type=text], .content .loginWnd .wnd input[type=password], .content .loginWnd .wnd input[type=email], .content .pagewrapper .inputform input, .content .pagewrapper .inputform input[type=text], .content .pagewrapper .inputform input[type=password], .content .pagewrapper .inputform input[type=email], .content .pagewrapper .wnd input, .content .pagewrapper .wnd input[type=text], .content .pagewrapper .wnd input[type=password], .content .pagewrapper .wnd input[type=email], .content .wnd .inputform input, .content .wnd .inputform input[type=text], .content .wnd .inputform input[type=password], .content .wnd .inputform input[type=email], .content .wnd .wnd input, .content .wnd .wnd input[type=text], .content .wnd .wnd input[type=password], .content .wnd .wnd input[type=email] {
   font-size: 1.2em;
   font-family: Calibri;
   font-weight: lighter;
@@ -206,6 +208,12 @@ nav.horizontal .menu-pointer {
   border: 2px solid whitesmoke;
   padding: 0 0.5rem;
   box-sizing: border-box;
+}
+.content .loginWnd .inputform input:active, .content .loginWnd .inputform input:focus, .content .loginWnd .wnd input:active, .content .loginWnd .wnd input:focus, .content .pagewrapper .inputform input:active, .content .pagewrapper .inputform input:focus, .content .pagewrapper .wnd input:active, .content .pagewrapper .wnd input:focus, .content .wnd .inputform input:active, .content .wnd .inputform input:focus, .content .wnd .wnd input:active, .content .wnd .wnd input:focus {
+  border: var(--menu-color) solid 1px;
+}
+.content .loginWnd .inputform input::placeholder, .content .loginWnd .wnd input::placeholder, .content .pagewrapper .inputform input::placeholder, .content .pagewrapper .wnd input::placeholder, .content .wnd .inputform input::placeholder, .content .wnd .wnd input::placeholder {
+  color: #85858570;
 }
 .content .loginWnd .inputform span, .content .loginWnd .inputform a, .content .loginWnd .wnd span, .content .loginWnd .wnd a, .content .pagewrapper .inputform span, .content .pagewrapper .inputform a, .content .pagewrapper .wnd span, .content .pagewrapper .wnd a, .content .wnd .inputform span, .content .wnd .inputform a, .content .wnd .wnd span, .content .wnd .wnd a {
   text-decoration: none;
@@ -220,9 +228,6 @@ nav.horizontal .menu-pointer {
   text-decoration: underline;
   cursor: pointer;
 }
-.content .loginWnd .inputform input:active, .content .loginWnd .inputform input:focus, .content .loginWnd .wnd input:active, .content .loginWnd .wnd input:focus, .content .pagewrapper .inputform input:active, .content .pagewrapper .inputform input:focus, .content .pagewrapper .wnd input:active, .content .pagewrapper .wnd input:focus, .content .wnd .inputform input:active, .content .wnd .inputform input:focus, .content .wnd .wnd input:active, .content .wnd .wnd input:focus {
-  border: var(--menu-color) solid 1px;
-}
 .content .loginWnd .inputform .closeWnd, .content .loginWnd .wnd .closeWnd, .content .pagewrapper .inputform .closeWnd, .content .pagewrapper .wnd .closeWnd, .content .wnd .inputform .closeWnd, .content .wnd .wnd .closeWnd {
   position: absolute;
   width: auto;
@@ -234,6 +239,12 @@ nav.horizontal .menu-pointer {
 }
 .content .loginWnd .inputform .closeWnd:hover, .content .loginWnd .inputform .closeWnd:focus, .content .loginWnd .wnd .closeWnd:hover, .content .loginWnd .wnd .closeWnd:focus, .content .pagewrapper .inputform .closeWnd:hover, .content .pagewrapper .inputform .closeWnd:focus, .content .pagewrapper .wnd .closeWnd:hover, .content .pagewrapper .wnd .closeWnd:focus, .content .wnd .inputform .closeWnd:hover, .content .wnd .inputform .closeWnd:focus, .content .wnd .wnd .closeWnd:hover, .content .wnd .wnd .closeWnd:focus {
   font-weight: bold;
+}
+.content .loginWnd .inputform button, .content .loginWnd .wnd button, .content .pagewrapper .inputform button, .content .pagewrapper .wnd button, .content .wnd .inputform button, .content .wnd .wnd button {
+  margin-top: 1rem;
+}
+.content .loginWnd .inputform::-webkit-scrollbar, .content .loginWnd .wnd::-webkit-scrollbar, .content .pagewrapper .inputform::-webkit-scrollbar, .content .pagewrapper .wnd::-webkit-scrollbar, .content .wnd .inputform::-webkit-scrollbar, .content .wnd .wnd::-webkit-scrollbar {
+  width: 0;
 }
 
 .content.vertical {
