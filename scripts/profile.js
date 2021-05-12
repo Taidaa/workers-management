@@ -76,12 +76,6 @@ function register() {
     form.innerHTML =
     `<form action="php/register.php" target="_self" method="POST">
         <label>
-            E-mail:
-            <br>
-            <input type="email" name="email">
-            <br>
-        </label>
-        <label>
             ФИО:
             <br>
             <input type="text" name="FIO">
@@ -155,7 +149,6 @@ function FormValidate(form){
     form.setAttribute("action", "/php/register.php");
 
     form.onsubmit = function (e) {e.preventDefault();};
-    let email = form.querySelector(`input[type="email"]`);
     let name = form.querySelector('input[type="text"]');
     let pwd = form.querySelector('input[type="password"]');
     let pwd_ = form.querySelectorAll('input[type="password"]')[1];
@@ -168,7 +161,6 @@ function FormValidate(form){
 
     if (pwd.value != ""     && 
         name.value != ""    && 
-        email.value != ""   && 
         pwd.value != ""     && 
         pwd_.value != ""    && 
         inst.value != ""    &&
@@ -200,9 +192,11 @@ function FormValidate(form){
                 }).then(res=>res.json()).then(res=>{
                    if (res.success) {
                         infospan.innerText = "Регистрация прошла успешно";
+                        infospan.style.color = "green";
                         setTimeout(()=>{location.reload()},4000)
                     } else if (res.code == 1){
                         infospan.innerText = "Этот логин уже занят!";
+                        infospan.style.color = "red";
                     }
                     
                 });
@@ -273,3 +267,9 @@ function fetchGroups(){
         })
     }
 }
+
+(function (){
+    document.body.onload = function(){
+        document.body.classList.add("loaded");
+    }
+})()
