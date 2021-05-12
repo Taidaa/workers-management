@@ -82,6 +82,12 @@ function register() {
             <br>
         </label>
         <label>
+            ФИО:
+            <br>
+            <input type="text" name="FIO">
+            <br>
+        </label>
+        <label>
             Логин:
             <br>
             <input type="text" name="login">
@@ -149,7 +155,6 @@ function FormValidate(form){
     form.setAttribute("action", "/php/register.php");
 
     form.onsubmit = function (e) {e.preventDefault();};
-
     let email = form.querySelector(`input[type="email"]`);
     let name = form.querySelector('input[type="text"]');
     let pwd = form.querySelector('input[type="password"]');
@@ -169,6 +174,7 @@ function FormValidate(form){
         inst.value != ""    &&
         group.value != ""
         ) {
+            
             if (!validateDatalist(inst)){
                 infospan.innerText = "* Такого учереждения в списке нет!";
                 return
@@ -183,7 +189,25 @@ function FormValidate(form){
                 infospan.innerText = "* Пароль должен содержать не менее 5 символов!";
             } else if (pwd.value !== pwd_.value){
                 infospan.innerText = "* Пароли несовпадают!";
-            } else {infospan.style.color = "green"; infospan.innerText = "Форма подтверждена!"; form.onsubmit = ()=>true}
+            } else {infospan.style.color = "green"; infospan.innerText = "Форма подтверждена!"; form.onsubmit = (e)=>{
+                e.preventDefault();
+                // Register query
+                let formData = new FormData(form);
+                console.log(formData);
+                fetch('/php/register.php',{
+                    method: 'POST',
+                    body: formData
+                }).then(res=>res.json()).then(res=>{
+                   if (res.success) {
+                        infospan.innerText = "Регистрация прошла успешно";
+                        setTimeout(()=>{location.reload()},4000)
+                    } else if (res.code == 1){
+                        infospan.innerText = "Этот логин уже занят!";
+                    }
+                    
+                });
+                return false
+            }}
     } else {infospan.innerText = "* Не все поля заполнены!";}
     
 
