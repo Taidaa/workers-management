@@ -15,21 +15,23 @@
 				<div class="inputform">
 					<div style="position: absolute; top: 10px;left: 1rem; font-weight: bold;font-size: 1.3em;">Вход</div>
 					<div class="closeWnd">x</div>
-					<form onsubmit="return false">
+					<form onsubmit="return false" method="POST" target="_self">
 						<label>
 							Логин:
 							<br>
-							<input type="text">
+							<input type="text" name="login">
 							<br>
 						</label>
 						<label>
 							Пароль:
 							<br>
-							<input type="password">
+							<input type="password" name="pwd">
 							<br>
 						</label>
 						<br>
-						<button>Войти</button>
+						<span id="infopanel"></span>
+						<br>
+						<button onclick="LoginOnServer(this)">Войти</button>
 						<span>Не можете войти? <a onclick="register();return false">Зарегестрироваться</a> или <a href="#">сменить пароль</a></span>
 					</form>
 				</div>

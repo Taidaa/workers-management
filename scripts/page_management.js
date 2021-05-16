@@ -66,6 +66,57 @@ function loadPage(href, h){
 	})
 }
 
+function isLoggedIn(){
+	
+	let login = "";
+	let sid = "";
+	// We get all the cookies
+	let cookieJar = [];
+	document.cookie.split(";").forEach(a=>{
+		b = a.trim().split("=");
+		cookie = new Object();
+		Object.defineProperty(cookie, b[0], {value: b[1]});
+		cookieJar.push(cookie);
+	});
+
+	// Find in cookies login and sid
+	cookieJar.forEach(cookie=>{
+		
+		if (Object.getOwnPropertyNames(cookie)[0] == "login"){
+			login = cookie["login"];
+		}
+
+		if (Object.getOwnPropertyNames(cookie)[0] == "sessionid"){
+			sid = cookie["sessionid"];
+		}
+
+
+		let formData = new FormData();
+		if (login && sid){
+			formData.append("login", login);
+			formData.append("sessionid", sid);
+			fetch("/php/checklogin.php", {
+				method: "POST", 
+				body: formData
+			}).then(res => {
+				return res.json();
+			}).then(res=>{
+				if (!res.success){
+					console.log("You are not logged in cause your cookies is broken");
+					return false;
+				} else {
+					console.log(`You are logged in as ${login}`);
+					return true;
+				}
+			})
+		}
+
+	});
+
+	console.log("You are not logged in");
+	return false;
+}
+
 /** 
  * Initialize page on uri filled or page reload
  */
@@ -88,4 +139,5 @@ function loadPage(href, h){
 			break;
 	}
 
+	isLoggedIn();
 })();

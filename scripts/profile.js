@@ -268,8 +268,25 @@ function fetchGroups(){
     }
 }
 
-(function (){
-    document.body.onload = function(){
-        document.body.classList.add("loaded");
-    }
-})()
+function LoginOnServer(butt){
+    let form = butt.parentNode;
+    let formData = new FormData(form);
+    fetch("/php/login.php", {
+        method: "POST",
+        body: formData
+    }).then((res)=>{
+        return res.json();
+    }).then((res)=>{
+        console.log(res);
+        if (res.success){
+            form.querySelector("#infopanel").innerText = "Вы успешно вошли. Страница будет перезагружена.";
+            setInterval(()=>{
+                window.location.reload();
+            },4000)
+        } else {
+            if (res.code == 0){
+                form.querySelector("#infopanel").innerText = "Неправильный логин или пароль";
+            }
+        }
+    })
+}
