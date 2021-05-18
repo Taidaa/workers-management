@@ -222,16 +222,15 @@ function FormValidate(form){
 function fetchInst(){
     const datalist = document.querySelector("datalist#inst");
     if (datalist.childElementCount == 0){
-        fetch('/json/institutions.json')
+        fetch('/php/fetchinst.php')
         .then((res)=>{
-            return res.text();
+            return res.json();
         })
-        .then((json)=>{
-            let institutions = JSON.parse(json).institutions;
-
+        .then((institutions)=>{
             institutions.forEach(inst => {
+                console.log(inst[0]);
                 let option = document.createElement("option");
-                option.setAttribute("value", inst);
+                option.setAttribute("value", inst[0]);
                 datalist.appendChild(option);
             });
         })
@@ -246,12 +245,11 @@ function fetchGroups(){
 
     if (inst != ""){
         datalist.innerHTML = "";
-        fetch('/json/groups.json')
+        fetch('/php/fetchgroups.php')
         .then((res)=>{
-            return res.text();
+            return res.json();
         })
-        .then((json)=>{
-            let inst = JSON.parse(json).institutions;
+        .then((inst)=>{
             inst.forEach(i => {
                 if (Object.keys(i)[0] == institution) {
                     let groups = i[Object.keys(i)].groups;
@@ -282,7 +280,7 @@ function LoginOnServer(butt){
             form.querySelector("#infopanel").innerText = "Вы успешно вошли. Страница будет перезагружена.";
             setInterval(()=>{
                 window.location.reload();
-            }, 500)
+            }, 400)
         } else {
             if (res.code == 0){
                 form.querySelector("#infopanel").innerText = "Неправильный логин или пароль";
@@ -292,8 +290,7 @@ function LoginOnServer(butt){
 }
 
 function unlog(){
-    fetch("/php/unlog.php")
-
+    fetch("/php/unlog.php");
     setTimeout(()=>{
     	location.reload();
     },300);

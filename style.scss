@@ -499,3 +499,64 @@ button:hover, button:focus {
     padding: 2em 1rem 1rem 1rem;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgba(255,255,255, 0.58);
+    
+    th, td {
+        padding: 1.3rem 1rem;
+        text-align: center;
+    }
+
+    tbody tr:nth-child(1) td{
+        color: white;
+        text-shadow: rgba(0,0,0,0.3) 1px 1px 5px;
+    }
+
+    // Header of table
+    tr th{
+        border-radius: 10px 10px 0 0;
+        color: white;
+        text-shadow: rgba(0,0,0,0.2) 1px 1px 5px;
+    }
+
+    thead:hover tr {
+        box-shadow: none !important;
+        background-color: darken(#fff, 15) !important;
+    }
+
+    tbody tr:nth-child(1):hover{
+        box-shadow: none !important;
+        background-color: darken(#fff, 15) !important;
+    }
+
+    tfoot {
+        td {
+            border-radius: 0 0 10px 10px;
+        }
+        tr:hover {
+            box-shadow: none !important;
+            background-color:  darken(#fff, 15) !important;
+        }
+    }
+
+    tr:nth-child(2n-1){
+      background-color: darken(#fff, 15);
+      color: $highlight-color;  
+      span {
+          color: $highlight-color;
+      }
+    }
+
+    tr{
+       transition: 0.3s;
+    }
+
+    tr:hover {
+        background-color: rgba(255,255,255, 0.6);
+        color: black;
+        box-shadow: rgba(0,0,0,0.3) 0 0 13px;
+    }
+}

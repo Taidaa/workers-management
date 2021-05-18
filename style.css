@@ -438,4 +438,54 @@ button:hover, button:focus {
   padding: 2em 1rem 1rem 1rem;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.58);
+}
+table th, table td {
+  padding: 1.3rem 1rem;
+  text-align: center;
+}
+table tbody tr:nth-child(1) td {
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.3) 1px 1px 5px;
+}
+table tr th {
+  border-radius: 10px 10px 0 0;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px;
+}
+table thead:hover tr {
+  box-shadow: none !important;
+  background-color: #d9d9d9 !important;
+}
+table tbody tr:nth-child(1):hover {
+  box-shadow: none !important;
+  background-color: #d9d9d9 !important;
+}
+table tfoot td {
+  border-radius: 0 0 10px 10px;
+}
+table tfoot tr:hover {
+  box-shadow: none !important;
+  background-color: #d9d9d9 !important;
+}
+table tr:nth-child(2n-1) {
+  background-color: #d9d9d9;
+  color: #858585;
+}
+table tr:nth-child(2n-1) span {
+  color: #858585;
+}
+table tr {
+  transition: 0.3s;
+}
+table tr:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 13px;
+}
+
 /*# sourceMappingURL=style.css.map */
