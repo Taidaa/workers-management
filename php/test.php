@@ -1,21 +1,22 @@
 <?php
 
-    include_once("db_connect.php");
-    header("Content-Type: application/json");
-    $login = $_POST["login"];
-    $sid = $_POST["sessionid"];
+    include_once("../php/db_connect.php");
+    $res = $conn->query("SELECT
+                            profile.id as 'uid',
+                            profile.login as 'login',
+                            FIO, 
+                            groups.mark as 'group',
+                            roles.name as 'role'
+                        FROM 
+                            profile, groups, roles 
+                        WHERE
+                            profile.login='{$_COOKIE['login']}' 
+                                AND
+                            groups.id=profile.groupID
+                                AND
+                            roles.id=profile.roleID");
 
-    $token = $sid.$login;
-
-    $res = $conn->query("SELECT token FROM profile WHERE login='{$login}'");
-    $res = $res->fetch_assoc();
-    if ($res != null){
-        $tokenatserver = $res["token"];
-    } else {
-        $tokenatserver = 0;
+    if ($res = $res->fetch_assoc()){
+		print_r($res);
     }
-    
-
-    echo json_encode(["success" => password_verify($token, $tokenatserver)]);
-    
 ?>

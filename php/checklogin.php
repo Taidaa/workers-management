@@ -1,20 +1,22 @@
 <?php
 
-    include_once("db_connect.php");
-    header("Content-Type: application/json");
-    $login = $_POST["login"];
-    $sid = $_POST["sessionid"];
+    function checkLogin(){
+        include_once("db_connect.php");
+        $login = isset($_COOKIE["login"]) ? $_COOKIE["login"] : "";
+        $sid = isset($_COOKIE["sessionid"]) ? $_COOKIE["sessionid"] : "";
 
-    $token = $sid.$login;
+        $token = $sid.$login;
 
-    $res = $conn->query("SELECT token FROM profile WHERE login='{$login}'");
-    $res = $res->fetch_assoc();
-    if ($res != null){
-        $tokenatserver = $res["token"];
-    } else {
-        $tokenatserver = 0;
+        $res = $conn->query("SELECT token FROM profile WHERE login='{$login}'");
+        $res = $res->fetch_assoc();
+        if ($res != null){
+            $tokenatserver = $res["token"];
+        } else {
+            $tokenatserver = 0;
+        }
+        
+        return password_verify($token, $tokenatserver);
     }
     
-    echo json_encode(["success" => password_verify($token, $tokenatserver)]);
-    
 ?>
+

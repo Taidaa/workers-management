@@ -66,11 +66,10 @@ function loadPage(href, h){
 	})
 }
 
-function isLoggedIn(){
-	
-	let login = "";
-	let sid = "";
-	// We get all the cookies
+/**
+ * We split window.cookie into several parts in one object so we can access it by its keys
+ */
+function CookieSplit(){
 	let cookieJar = [];
 	document.cookie.split(";").forEach(a=>{
 		b = a.trim().split("=");
@@ -79,42 +78,11 @@ function isLoggedIn(){
 		cookieJar.push(cookie);
 	});
 
-	// Find in cookies login and sid
+	window.cookieJar = cookieJar;
+	window.cookies = {};
 	cookieJar.forEach(cookie=>{
-		
-		if (Object.getOwnPropertyNames(cookie)[0] == "login"){
-			login = cookie["login"];
-		}
-
-		if (Object.getOwnPropertyNames(cookie)[0] == "sessionid"){
-			sid = cookie["sessionid"];
-		}
-
-
-		let formData = new FormData();
-		if (login && sid){
-			formData.append("login", login);
-			formData.append("sessionid", sid);
-			fetch("/php/checklogin.php", {
-				method: "POST", 
-				body: formData
-			}).then(res => {
-				return res.json();
-			}).then(res=>{
-				if (!res.success){
-					console.log("You are not logged in cause your cookies is broken");
-					return false;
-				} else {
-					console.log(`You are logged in as ${login}`);
-					return true;
-				}
-			})
-		}
-
-	});
-
-	console.log("You are not logged in");
-	return false;
+		Object.defineProperty(cookies, Object.getOwnPropertyNames(cookie)[0], {value: cookie[Object.getOwnPropertyNames(cookie)[0]]});
+	})
 }
 
 /** 
@@ -126,10 +94,10 @@ function isLoggedIn(){
 	const nav_items = document.querySelectorAll("nav ul li");
 	switch (path) {
 		case "/":
-			loadPage("page/profile.html", "Профиль");
+			loadPage("page/profile.php", "Профиль");
 			break;
 		case "/Профиль":
-			loadPage("page/profile.html", "Профиль");
+			loadPage("page/profile.php", "Профиль");
 			break;
 		case "/Список группы":
 			nav_items[1].click();
@@ -137,7 +105,8 @@ function isLoggedIn(){
 		case "/Таблица":
 			nav_items[2].click();
 			break;
+		default:
+			loadPage("page/profile.php", "Профиль");
+			break;
 	}
-
-	isLoggedIn();
 })();

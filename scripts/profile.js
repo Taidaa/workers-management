@@ -282,7 +282,7 @@ function LoginOnServer(butt){
             form.querySelector("#infopanel").innerText = "Вы успешно вошли. Страница будет перезагружена.";
             setInterval(()=>{
                 window.location.reload();
-            },4000)
+            }, 500)
         } else {
             if (res.code == 0){
                 form.querySelector("#infopanel").innerText = "Неправильный логин или пароль";
@@ -290,3 +290,11 @@ function LoginOnServer(butt){
         }
     })
 }
+
+function unlog(){
+    fetch("/php/unlog.php")
+
+    setTimeout(()=>{
+    	location.reload();
+    },300);
+}	
