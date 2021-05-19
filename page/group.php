@@ -7,7 +7,8 @@
 								FIO, 
 								groups.mark as 'group',
 								groups.id as 'gid',
-								roles.name as 'role'
+								roles.name as 'role',
+								roles.permissions as 'perms'
 							 FROM 
 								profile, groups, roles 
 							 WHERE
@@ -23,6 +24,7 @@
 			$group = $res["group"];
 			$groupID = $res["gid"];
 			$role = $res["role"];
+			$permissions = $res["perms"];
 		} else {
 			$loggedIn = false;
 		}
@@ -30,7 +32,7 @@
 ?>
 
 <article class="group">
-	<?php if ($loggedIn): ?>
+	<?php if ($loggedIn && str_contains($permissions, "watch_own")): ?>
 		<table>
 			<thead>
 				<tr><th id="tableheader" colspan="3" data-groupid=<?php echo $groupID?>>
@@ -59,7 +61,7 @@
 					$i++;
 				?>
 				
-				<tr data-stud-id="<?php echo $row[1]?>" class="table-row-student">
+				<tr data-stud-id="<?php echo $row[1]?>" <?php if (!str_contains($permissions, "add_stud")) echo " disabled "?> class="table-row-student">
 					<td class='number'>
 						<?php echo $i; ?>
 					</td>
@@ -67,7 +69,8 @@
 						<?php print($row[0]); ?>
 					</td>
 					<td>
-						<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%" class="deletefromgroup">
+						<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%" class="deletefromgroup"
+						<?php if (!str_contains($permissions, "del_stud")) echo " disabled "?>>
 							<div style="position: absolute; left: 50%; transform: translateX(-51%); top: -17%">-</div>
 						</button>
 					</td>
@@ -77,18 +80,21 @@
 			</tbody>
 			<tfoot>
 				<tr><td colspan="3">
-					<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%">
+					<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%" <?php if (!str_contains($permissions, "add_stud")) echo " disabled "?>>
 						<div style="position: absolute; left: 50%; transform: translateX(-50%); top: -8%" onclick="addToGroup()">+</div>
 					</button>
 				</td></tr>
 			</tfoot>
 		</table>
 
-		<small>
-		<p>* Кликните по кнопке "+" в футере таблицы чтобы добавить в список студента. </p>
-		<p>* Кликниет по кнопке "-" в той же строке, что и студент, которого вы хотите удалить из списка.</p>
-		<p>* Кликните по строчке студента, имя которого вы хотите изменить.</p>
-		</small>
+		<?php if (str_contains($permissions, "add_stud") || str_contains($permissions, "del_stud")) echo "
+			<small>
+			<p>* Кликните по кнопке '+' в футере таблицы чтобы добавить в список студента. </p>
+			<p>* Кликниет по кнопке '-' в той же строке, что и студент, которого вы хотите удалить из списка.</p>
+			<p>* Кликните по строчке студента, имя которого вы хотите изменить.</p>
+			</small>
+		"?>
+		
 
 		<script id="pageloaded">
 			

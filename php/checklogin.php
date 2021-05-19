@@ -1,7 +1,7 @@
 <?php
 
     function checkLogin(){
-        include_once("db_connect.php");
+        include("db_connect.php");
         $login = isset($_COOKIE["login"]) ? $_COOKIE["login"] : "";
         $sid = isset($_COOKIE["sessionid"]) ? $_COOKIE["sessionid"] : "";
 

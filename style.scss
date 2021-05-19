@@ -468,6 +468,15 @@ button:hover, button:focus {
     color: rgba(255,255,255, 0.78);
 }
 
+button:disabled{ 
+    opacity: 0.3;
+    pointer-events:none;
+}
+
+tr[disabled]{
+    pointer-events:none;
+}
+
 %window {
     z-index: 200;
     width: 40vw;

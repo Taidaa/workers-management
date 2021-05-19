@@ -251,7 +251,7 @@ nav.horizontal .menu-pointer {
 .content.vertical {
   font-size: 3rem;
   width: 85vw;
-  min-height: 110vh;
+  min-height: 100vh;
   padding: 2rem 1rem 1rem 1rem;
   margin: auto;
 }
@@ -410,6 +410,15 @@ button:hover, button:focus {
   background-color: var(--highlight-color);
   border: 2px solid var(--highlight-color);
   color: rgba(255, 255, 255, 0.78);
+}
+
+button:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+tr[disabled] {
+  pointer-events: none;
 }
 
 .wnd {
