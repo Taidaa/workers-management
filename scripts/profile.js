@@ -2,35 +2,9 @@
  * Open login window
  */
 function login(){
-    // Находим шаблон окна
-    const wrapper = document.querySelector("#loginWnd").innerHTML;
-    
-    // Создаем пустой элемент и вставляем код шаблона
-    let div = document.createElement("div");
-    div.innerHTML = wrapper;
-    div.classList.add("loginWnd");
-
-    // Рендерим окно на странице
-    let loginWnd = document.querySelector(".content").appendChild(div);
-
-    // Программно анимируем
-    loginWnd.style.opacity = 0;
-    loginWnd.children[0].style = `
-    transition: 0.5s;
-    transform: rotateX(90deg) translateX(100%);`;
-
-    setTimeout(()=>{
-        loginWnd.children[0].style.transform = ``;
-        loginWnd.style.opacity = 1;
-    }, 200);
-
-    // Задаем поведение кнопке закрытия
-    document.querySelector(".closeWnd").onclick = function () {
-        let wrapper = this.parentNode.parentNode;
-        wrapper.style.opacity = 0;
-        wrapper.children[0].style.transform = "rotateX(90deg) translateX(100%)";
-        setTimeout(()=>wrapper.remove(), 250);
-    }
+    let wnd = openCtxWnd();
+    let form = wnd.appendChild(document.createElement("div"));
+    form.innerHTML = document.querySelector("#loginWnd").innerHTML;
 }
 
 /**

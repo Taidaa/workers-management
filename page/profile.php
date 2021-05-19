@@ -69,9 +69,6 @@
 	
 	
 	<template id="loginWnd">
-				<div class="inputform">
-					<div style="position: absolute; top: 10px;left: 1rem; font-weight: bold;font-size: 1.3em;">Вход</div>
-					<div class="closeWnd">x</div>
 					<form onsubmit="return false" method="POST" target="_self">
 						<label>
 							Логин:
@@ -91,7 +88,6 @@
 						<button onclick="LoginOnServer(this)">Войти</button>
 						<span><a onclick="register();return false" style="position: relative; left: 1.5rem">Зарегестрироваться</a></span>
 					</form>
-				</div>
 	</template>
 	
 

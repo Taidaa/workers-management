@@ -9,6 +9,67 @@ function initLoader(visible) {
 }
 
 /**
+ * @param code Code to evaluate on window open.
+ * Opens context window.
+ * @returns Node Opened window
+ */
+function openCtxWnd(code = "")
+			{
+				// Close other windows
+				document.querySelectorAll(".pagewrapper").forEach(w=>{
+					w.querySelector(".closeWnd").click();
+				})
+
+				let wrapper = document.createElement("div");
+					wrapper.classList.add("pagewrapper");
+					wrapper = document.querySelector(".content").appendChild(wrapper);
+
+					// Open window for rename
+					let wnd = document.createElement("div");
+					wnd.classList.add("wnd");
+					wrapper.appendChild(wnd);
+					wnd.style.height = "auto";
+
+					if (isVertical()){
+						wnd.classList.add("vertical");
+					}
+
+					// Программно анимируем
+					wnd.style.opacity = 0;
+					wnd.style = `
+					transition: 0.5s;
+					transform: rotateX(90deg) translateX(100%);
+					height: auto;`;
+
+					setTimeout(()=>{
+						wnd.style.transform = ``;
+						wnd.style.opacity = 1;
+					}, 200);
+
+
+					// Make close button
+					let close = document.createElement("div");
+					close.classList.add("closeWnd");
+					close = wnd.appendChild(close);
+					close.innerText = "X";
+					close.onclick = ()=>{
+						wnd.style.transform = "rotateX(90deg) translateX(100%)";
+        				setTimeout(()=>wrapper.remove(), 250);
+					}
+
+					wnd.close = ()=>close.click();
+
+					if (typeof code === "string"){
+						try {
+							eval(code);
+						} catch (e) {
+							console.warn("Cannot evaluate code in context window because of error: " + e.message);
+						}
+					}
+					return wnd;
+			}
+
+/**
  * Delete current page before opening another so they not intersect or stack on each other
  */
 function unloadPage() {
@@ -109,4 +170,6 @@ function CookieSplit(){
 			loadPage("page/profile.php", "Профиль");
 			break;
 	}
+
+	window.openCtxWnd = openCtxWnd;
 })();

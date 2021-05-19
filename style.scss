@@ -25,6 +25,7 @@ body, html {
 	margin: 0;
 	padding: 0;
 	background-color: var(--body);
+    overflow-x: hidden;
 }
 
 nav {
@@ -355,7 +356,7 @@ nav.horizontal {
         .inputform, .wnd {
             z-index: 200;
             width: 80vw;
-            min-height: 20vh;
+            min-height: 5vh;
             background-color: white;
             border-radius: 10px;
             box-shadow: $box-shadow;
@@ -483,6 +484,19 @@ button:hover, button:focus {
 
 .wnd {
     @extend %window;
+
+    .closeWnd {
+        position: absolute;
+        width: 0;
+        font-size: 1.5em;
+        top: 0;
+        right: 2.5rem;
+    }
+
+    .closeWnd:hover, .closeWnd:focus {
+        font-weight: bold;
+        cursor: pointer;
+    }
 }
 
 .wnd.vertical {
@@ -504,46 +518,63 @@ table {
     width: 100%;
     border-radius: 10px;
     background-color: rgba(255,255,255, 0.58);
+    transition: 0.3s;
     
+    td:nth-child(2n-1){
+        width: 10%;
+    }
+
     th, td {
         padding: 1.3rem 1rem;
         text-align: center;
     }
 
+    // First row of table
     tbody tr:nth-child(1) td{
         color: white;
         text-shadow: rgba(0,0,0,0.3) 1px 1px 5px;
+        cursor: initial;
     }
 
     // Header of table
     tr th{
+        font-size: 1.5em;
         border-radius: 10px 10px 0 0;
         color: white;
         text-shadow: rgba(0,0,0,0.2) 1px 1px 5px;
+        
     }
 
     thead:hover tr {
         box-shadow: none !important;
-        background-color: darken(#fff, 15) !important;
+        background-color: lighten($menu-color, 70) !important;
+        transform: scale(1);
+        cursor: initial;
     }
 
     tbody tr:nth-child(1):hover{
         box-shadow: none !important;
-        background-color: darken(#fff, 15) !important;
+        background-color: lighten($menu-color, 70) !important;
+        transform: scale(1);
     }
 
     tfoot {
+        
         td {
             border-radius: 0 0 10px 10px;
+            font-size: 1.5em;
         }
         tr:hover {
             box-shadow: none !important;
-            background-color:  darken(#fff, 15) !important;
+            background-color:  lighten($menu-color, 70) !important;
+            transform: scale(1.0);
+            cursor: initial;
+            color: $highlight-color;
         }
     }
 
     tr:nth-child(2n-1){
-      background-color: darken(#fff, 15);
+      background-color: lighten($menu-color, 70);
       color: $highlight-color;  
       span {
           color: $highlight-color;
@@ -554,7 +585,10 @@ table {
        transition: 0.3s;
     }
 
+    // Every row in table
     tr:hover {
+        cursor: pointer;
+        transform: scale(1.02);
         background-color: rgba(255,255,255, 0.6);
         color: black;
         box-shadow: rgba(0,0,0,0.3) 0 0 13px;

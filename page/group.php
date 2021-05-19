@@ -50,13 +50,14 @@
 				</tr>
 				<?php
 				$i = 0;
-				$res = $conn->query("SELECT FIO role FROM students WHERE groupID={$groupID} ORDER BY `students`.`FIO` ASC"); 
-				
+				$res = $conn->query("SELECT FIO, id role FROM students WHERE groupID={$groupID} ORDER BY `students`.`FIO` ASC"); 
+
+				// Выводим список в цикле // 
 				while ($row = $res->fetch_row()){
 					$i++;
 				?>
 				
-				<tr>
+				<tr data-stud-id="<?php echo $row[1]?>" class="table-row-student">
 					<td class='number'>
 						<?php echo $i; ?>
 					</td>
@@ -69,7 +70,8 @@
 						</button>
 					</td>
 				</tr>
-				<?php } ?>
+				<?php } 
+				//  	--  END  -- 	//  	?>
 			</tbody>
 			<tfoot>
 				<tr><td colspan="3">
@@ -79,6 +81,41 @@
 				</td></tr>
 			</tfoot>
 		</table>
+
+		<small>
+		<p>* Кликните по кнопке "+" в футере таблицы чтобы добавить в список студента. </p>
+		<p>* Кликниет по кнопке "-" в той же строке, что и студент, которого вы хотите удалить из списка.</p>
+		<p>* Кликните по строчке студента, имя которого вы хотите изменить.</p>
+		</small>
+
+		<script id="pageloaded">
+			
+
+			function init()
+			{
+
+				document.querySelectorAll(".table-row-student").forEach(row=>{
+					row.onclick = function (e){
+						console.log(this);
+						let wnd = openCtxWnd();
+						
+						let div = document.createElement("div");
+						div.innerHTML = `
+							<label>
+								ФИО:
+								<input type="text" name="FIO" placeholder="${this.querySelectorAll("td")[1].innerText}" style="text-align:center"/>
+							<label>
+							<button style="position:relative; left: 50%; transform: translate(-50%)" onclick="openCtxWnd()">Сохранить</button>
+						`;
+						wnd.appendChild(div);
+						
+					};
+				});
+			}
+		
+		init();
+		</script>
+
 	<?php else: ?>
 		Вы не вошли в профиль. Войдите на вкладке профиля.
 	<?php endif; ?>

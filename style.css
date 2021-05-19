@@ -22,6 +22,7 @@ body, html {
   margin: 0;
   padding: 0;
   background-color: var(--body);
+  overflow-x: hidden;
 }
 
 nav {
@@ -309,7 +310,7 @@ nav.horizontal .menu-pointer {
 .content.vertical .loginWnd .inputform, .content.vertical .loginWnd .wnd, .content.vertical .pagewrapper .inputform, .content.vertical .pagewrapper .wnd {
   z-index: 200;
   width: 80vw;
-  min-height: 20vh;
+  min-height: 5vh;
   background-color: white;
   border-radius: 10px;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
@@ -424,6 +425,18 @@ button:hover, button:focus {
   padding: 2.8em 1rem 1rem 1rem;
 }
 
+.wnd .closeWnd {
+  position: absolute;
+  width: 0;
+  font-size: 1.5em;
+  top: 0;
+  right: 2.5rem;
+}
+.wnd .closeWnd:hover, .wnd .closeWnd:focus {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .wnd.vertical {
   z-index: 200;
   width: 80vw;
@@ -443,6 +456,10 @@ table {
   width: 100%;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.58);
+  transition: 0.3s;
+}
+table td:nth-child(2n-1) {
+  width: 10%;
 }
 table th, table td {
   padding: 1.3rem 1rem;
@@ -451,29 +468,38 @@ table th, table td {
 table tbody tr:nth-child(1) td {
   color: white;
   text-shadow: rgba(0, 0, 0, 0.3) 1px 1px 5px;
+  cursor: initial;
 }
 table tr th {
+  font-size: 1.5em;
   border-radius: 10px 10px 0 0;
   color: white;
   text-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px;
 }
 table thead:hover tr {
   box-shadow: none !important;
-  background-color: #d9d9d9 !important;
+  background-color: #d7d7d7 !important;
+  transform: scale(1);
+  cursor: initial;
 }
 table tbody tr:nth-child(1):hover {
   box-shadow: none !important;
-  background-color: #d9d9d9 !important;
+  background-color: #d7d7d7 !important;
+  transform: scale(1);
 }
 table tfoot td {
   border-radius: 0 0 10px 10px;
+  font-size: 1.5em;
 }
 table tfoot tr:hover {
   box-shadow: none !important;
-  background-color: #d9d9d9 !important;
+  background-color: #d7d7d7 !important;
+  transform: scale(1);
+  cursor: initial;
+  color: #858585;
 }
 table tr:nth-child(2n-1) {
-  background-color: #d9d9d9;
+  background-color: #d7d7d7;
   color: #858585;
 }
 table tr:nth-child(2n-1) span {
@@ -483,6 +509,8 @@ table tr {
   transition: 0.3s;
 }
 table tr:hover {
+  cursor: pointer;
+  transform: scale(1.02);
   background-color: rgba(255, 255, 255, 0.6);
   color: black;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 13px;
