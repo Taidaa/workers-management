@@ -23,6 +23,8 @@
 			$group = $res["group"];
 			$groupID = $res["gid"];
 			$role = $res["role"];
+		} else {
+			$loggedIn = false;
 		}
 	}
 ?>
@@ -31,7 +33,7 @@
 	<?php if ($loggedIn): ?>
 		<table>
 			<thead>
-				<tr><th colspan="3">
+				<tr><th id="tableheader" colspan="3" data-groupid=<?php echo $groupID?>>
 					<?php echo $group ?>
 				</th></tr>
 				
@@ -65,7 +67,7 @@
 						<?php print($row[0]); ?>
 					</td>
 					<td>
-						<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%">
+						<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%" class="deletefromgroup">
 							<div style="position: absolute; left: 50%; transform: translateX(-51%); top: -17%">-</div>
 						</button>
 					</td>
@@ -76,7 +78,7 @@
 			<tfoot>
 				<tr><td colspan="3">
 					<button style="position: relative;display:block; margin: auto; padding: 0; width: 1em; height: 1em;border-radius: 100%">
-						<div style="position: absolute; left: 50%; transform: translateX(-50%); top: -8%">+</div>
+						<div style="position: absolute; left: 50%; transform: translateX(-50%); top: -8%" onclick="addToGroup()">+</div>
 					</button>
 				</td></tr>
 			</tfoot>
@@ -91,26 +93,101 @@
 		<script id="pageloaded">
 			
 
+			function addToGroup(){
+				let wnd = openCtxWnd("Добавить в список");
+				let input = wnd.appendChild(document.createElement("input"));
+				input.setAttribute("placeholder", "Фамилия Имя Отчество");
+				input.style = "text-align: center";
+				
+				let button = wnd.appendChild(document.createElement("button"));
+				button.innerText = "Добавить и сохранить";
+				button.style = "position: relative; left: 50%; transform: translate(-50%)"
+
+				button.onclick = function(){
+					formData = new FormData();
+					formData.append("name", input.value);
+					formData.append("groupID", <?php echo $groupID?>);
+					fetch("../php/addtogroup.php", {
+						body: formData,
+						method: "POST"
+					});
+					wnd.close();
+					window.location.reload();
+				}
+			}
+
+			function removeFromGroup(id, name){
+				let wnd = openCtxWnd("Удалить");
+
+				let p = wnd.appendChild(document.createElement("p"));
+				p.innerText = `Вы действительно хотите удалить ${name} из группы?`;
+
+				let confirm = wnd.appendChild(document.createElement("button"));
+				confirm.innerText = "Да";
+				confirm.style = "width: 30%";
+
+
+				let deny = wnd.appendChild(document.createElement("button"));
+				deny.innerText = "Нет";
+				deny.style = "position:absolute; right: 1rem;width: 30%";
+
+				confirm.onclick = function(){
+					formData = new FormData();
+					formData.append("id", id);
+					fetch("../php/removefromgroup.php", {
+						body: formData,
+						method: "POST"
+					});
+					wnd.close();
+					window.location.reload()
+				}
+
+				deny.onclick = wnd.close;
+			}
+
 			function init()
 			{
 
 				document.querySelectorAll(".table-row-student").forEach(row=>{
 					row.onclick = function (e){
-						console.log(this);
 						let wnd = openCtxWnd();
-						
 						let div = document.createElement("div");
 						div.innerHTML = `
 							<label>
 								ФИО:
 								<input type="text" name="FIO" placeholder="${this.querySelectorAll("td")[1].innerText}" style="text-align:center"/>
 							<label>
-							<button style="position:relative; left: 50%; transform: translate(-50%)" onclick="openCtxWnd()">Сохранить</button>
+							<button style="position:relative; left: 50%; transform: translate(-50%)" onclick="RenameOnServer(${this.dataset.studId}, this.parentNode.previousElementSibling.value)">Сохранить</button>
 						`;
 						wnd.appendChild(div);
-						
 					};
 				});
+
+				
+				document.querySelectorAll(".deletefromgroup").forEach(b=>{
+					b.addEventListener("click", function(e){
+						e.stopPropagation();
+						let row = this.parentNode.parentNode;
+						let id = row.dataset.studId;
+						let name = this.parentNode.previousElementSibling.innerText;
+						removeFromGroup(id, name);
+					});
+				})
+				
+				function RenameOnServer(id, name){
+					let formData = new FormData();
+					formData.append("id", id);
+					formData.append("name", name);
+					fetch("../php/renamestud.php", {
+						body: formData,
+						method: "POST"
+					});
+					window.location.reload();
+				}
+
+				window.RenameOnServer = RenameOnServer;
+				window.addToGroup = addToGroup;
+				window.removeFromGroup = removeFromGroup;
 			}
 		
 		init();

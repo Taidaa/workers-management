@@ -20,6 +20,10 @@
 			$FIO = $res["FIO"];
 			$group = $res["group"];
 			$role = $res["role"];
+		} else {
+			$FIO = "Не удалось получить информацию с сервера";
+			$group = "";
+			$role = "";
 		}
 	}
 ?>

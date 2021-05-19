@@ -41,6 +41,8 @@
     $res = $conn->query("INSERT INTO profile(FIO, groupID, roleID, login, password)
                             VALUES ('{$FIO}', '{$groupid}', 0, '{$login}', '{$userpass}')");
     
+    $conn->query("INSERT INTO students(FIO, groupID) VALUES ('{$FIO}', {$groupid})");
+
     $data = ["success" => $res];
     echo json_encode($data);
 

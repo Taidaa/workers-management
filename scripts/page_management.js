@@ -9,17 +9,19 @@ function initLoader(visible) {
 }
 
 /**
- * @param code Code to evaluate on window open.
+ * @param {string} header Window header 
+ * @param {string} code Code to evaluate on window open.
  * Opens context window.
- * @returns Node Opened window
+ * @returns {Node} Opened window
  */
-function openCtxWnd(code = "")
+function openCtxWnd(header = "",code = "")
 			{
 				// Close other windows
-				document.querySelectorAll(".pagewrapper").forEach(w=>{
-					w.querySelector(".closeWnd").click();
+				document.querySelectorAll(".wnd").forEach(w=>{
+					w.close();
 				})
 
+				
 				let wrapper = document.createElement("div");
 					wrapper.classList.add("pagewrapper");
 					wrapper = document.querySelector(".content").appendChild(wrapper);
@@ -28,18 +30,34 @@ function openCtxWnd(code = "")
 					let wnd = document.createElement("div");
 					wnd.classList.add("wnd");
 					wrapper.appendChild(wnd);
-					wnd.style.height = "auto";
 
-					if (isVertical()){
-						wnd.classList.add("vertical");
-					}
+					wnd.close = ()=>{
+						wnd.style.transform = "rotateX(90deg) translateX(100%)";
+        				setTimeout(()=>wrapper.remove(), 250);
+					};
 
-					// Программно анимируем
+					document.addEventListener("keydown", (e)=>{
+						if (e.code === "Escape"){
+							wnd.close();
+						}
+					});
+
+					// Make window header
+					let head = wnd.appendChild(document.createElement("div"));
+					head.innerHTML = `<div style="position: absolute; top:1%;font-size: 1.5em; font-weight: bold; color: black;">${header}</div>`;
+
+					// Animate opening
 					wnd.style.opacity = 0;
 					wnd.style = `
 					transition: 0.5s;
 					transform: rotateX(90deg) translateX(100%);
 					height: auto;`;
+
+					if (isVertical()){
+						wnd.classList.add("vertical");
+					}
+
+					
 
 					setTimeout(()=>{
 						wnd.style.transform = ``;
@@ -48,16 +66,13 @@ function openCtxWnd(code = "")
 
 
 					// Make close button
-					let close = document.createElement("div");
-					close.classList.add("closeWnd");
-					close = wnd.appendChild(close);
-					close.innerText = "X";
-					close.onclick = ()=>{
-						wnd.style.transform = "rotateX(90deg) translateX(100%)";
-        				setTimeout(()=>wrapper.remove(), 250);
-					}
+					let closeB = document.createElement("div");
+					closeB.classList.add("closeWnd");
+					closeB = wnd.appendChild(closeB);
+					closeB.innerText = "X";
+					closeB.onclick = wnd.close;
 
-					wnd.close = ()=>close.click();
+					
 
 					if (typeof code === "string"){
 						try {

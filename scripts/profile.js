@@ -2,7 +2,7 @@
  * Open login window
  */
 function login(){
-    let wnd = openCtxWnd();
+    let wnd = openCtxWnd("Войти");
     let form = wnd.appendChild(document.createElement("div"));
     form.innerHTML = document.querySelector("#loginWnd").innerHTML;
 }
@@ -11,40 +11,8 @@ function login(){
  * Open register window
  */
 function register() {
-    // Закрываем окно авторизации
-    document.querySelector(".closeWnd").click();
-
-    // Создаем pagewrapper
-    let wrapper = document.createElement(`div`);
     
-
-    // Рендерим на странице
-    wrapper = document.querySelector(".content").appendChild(wrapper);
-    wrapper.classList.add("pagewrapper");
-
-    // Создаем окошко регистрации
-    let wnd = document.createElement("div");
-    wnd.classList.add("wnd")
-    if (isVertical()){
-        wnd.classList.add("vertical");
-    }
-    wrapper.appendChild(wnd);
-
-    // Создаем кнопочку закрытия
-    let closeWnd = document.createElement("div"); 
-    closeWnd.classList.add("closeWnd");
-    closeWnd.innerText = "x";
-    
-    // Рендерим кнопочку
-    closeWnd = wnd.appendChild(closeWnd);
-
-    // Создаем заголовок
-    let header = document.createElement("div");
-    header.style = "position: absolute; top: 10px;left: 1rem; font-weight: bold;font-size: 1.3em";
-    header.innerText = "Регистрация";
-
-    // Рендерим заголовок
-    header = wnd.appendChild(header);
+    let wnd = openCtxWnd("Регистрация");
 
     let form = document.createElement("form");
     form.innerHTML =
@@ -91,28 +59,8 @@ function register() {
         position: relative;" onclick="FormValidate(this)">Зарегестрироваться</button>
         <div class="infospan"></div> 
 </form>`;
-    wnd.style.height = "auto";
 
     wnd.appendChild(form);
-
-    // Программно анимируем появление
-    wrapper.style = `transition: 300ms;
-                     opacity: 0;`
-    setTimeout(()=>{
-        wrapper.style.opacity = 1;
-
-        // Делаем кнопочку закрытия рабочей
-        closeWnd.onclick = function () {
-            let wrapper = this.parentNode.parentNode;
-            wrapper.style.opacity = 0;
-            wrapper.children[0].style.transition = "250ms";
-            wrapper.children[0].style.transform = "rotateX(90deg) translateX(100%)";
-            setTimeout(()=>wrapper.remove(), 250);
-        }
-    }, 100);
-
-    
-    
 }
 
 
@@ -223,18 +171,13 @@ function fetchGroups(){
         .then((res)=>{
             return res.json();
         })
-        .then((inst)=>{
-            inst.forEach(i => {
-                if (Object.keys(i)[0] == institution) {
-                    let groups = i[Object.keys(i)].groups;
-                    datalist.innerHTML = "";
-                    groups.forEach(g => {
-                        let option = document.createElement("option");
-                        option.setAttribute("value", g);
-                        datalist.appendChild(option);
-                        return
-                    })
-                }
+        .then((groups)=>{
+            datalist.innerHTML = "";
+            groups.forEach(g => {     
+                let option = document.createElement("option");
+                option.setAttribute("value", g);
+                datalist.appendChild(option);
+                return
             })
         })
     }
