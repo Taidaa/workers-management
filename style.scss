@@ -2,6 +2,11 @@ $body: #d8d8d8;
 $menu-color: #242424;
 $highlight-color: #858585;
 $box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+.darkmode {
+    filter: invert(1);
+}
+
+
 :root {
     --body: #{$body};
     --menu-color: #{$menu-color};

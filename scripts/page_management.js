@@ -21,7 +21,6 @@ function openCtxWnd(header = "",code = "")
 					w.close();
 				})
 
-				
 				let wrapper = document.createElement("div");
 					wrapper.classList.add("pagewrapper");
 					wrapper = document.querySelector(".content").appendChild(wrapper);
@@ -56,14 +55,11 @@ function openCtxWnd(header = "",code = "")
 					if (isVertical()){
 						wnd.classList.add("vertical");
 					}
-
 					
-
 					setTimeout(()=>{
 						wnd.style.transform = ``;
 						wnd.style.opacity = 1;
 					}, 200);
-
 
 					// Make close button
 					let closeB = document.createElement("div");
@@ -71,8 +67,7 @@ function openCtxWnd(header = "",code = "")
 					closeB = wnd.appendChild(closeB);
 					closeB.innerText = "X";
 					closeB.onclick = wnd.close;
-
-					
+				
 
 					if (typeof code === "string"){
 						try {

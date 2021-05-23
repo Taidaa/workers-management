@@ -1,5 +1,7 @@
 <?php 
 	include '../php/checklogin.php'; 
+
+	$permissions = "";
 	$loggedIn = checkLogin();
 	if ($loggedIn){
 		include("../php/db_connect.php");
@@ -32,7 +34,7 @@
 ?>
 
 <article class="group">
-	<?php if ($loggedIn && str_contains($permissions, "watch_own")): ?>
+	<?php if ($loggedIn && (str_contains($permissions, "watch_own")) || str_contains($permissions, "watch_all")): ?>
 		<table>
 			<thead>
 				<tr><th id="tableheader" colspan="3" data-groupid=<?php echo $groupID?>>

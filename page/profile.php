@@ -1,12 +1,16 @@
 <?php 
 	include '../php/checklogin.php'; 
+	
 	$loggedIn = checkLogin();
 	if ($loggedIn){
 		include("../php/db_connect.php");
 		$res = $conn->query("SELECT
 								FIO, 
 								groups.mark as 'group',
-								roles.name as 'role'
+								groups.id as 'groupID',
+								roles.name as 'role',
+								roles.id as 'roleID',
+								roles.permissions as 'perms'
 							 FROM 
 								profile, groups, roles 
 							 WHERE
@@ -19,7 +23,10 @@
 		if ($res = $res->fetch_assoc()){
 			$FIO = $res["FIO"];
 			$group = $res["group"];
+			$groupID = $res["groupID"];
 			$role = $res["role"];
+			$roleID = $res["roleID"];
+			$permissions = $res["perms"];
 		} else {
 			$FIO = "Не удалось получить информацию с сервера";
 			$group = "";
@@ -46,7 +53,14 @@
 		<div class="group">
 			<?php
 			if ($loggedIn){
-				echo $group;
+				if (str_contains($permissions, "manage_all") 	  || 
+				str_contains($permissions, "watch_other_groups") || 
+				str_contains($permissions, "watch_all"))  {
+					echo "<span style='text-decoration: underline; cursor: pointer;' onclick='changegroup({$roleID}, {$groupID})'>$group</span>";
+				} else {
+					echo $group;
+				}
+				
 			} else {
 				echo "-";
 			}

@@ -1,2 +1,3 @@
 style.css.map
-json/
+json/*
+./json/todo.json

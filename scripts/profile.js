@@ -32,7 +32,7 @@ function register() {
         <label>
             Пароль:
             <br>
-            <input type="password" name="password">
+            <input type="password" name="password" autocomplete='current-password'>
             <br>
         </label>
         <label>
@@ -159,15 +159,21 @@ function fetchInst(){
     }
 }
 
-function fetchGroups(){
+function fetchGroups(instID = 0){
     const datalist = document.querySelector("datalist#groups");
     const institution = document.querySelector("input.inst").value;
-
-    document.querySelector("input.groups").value ="";
-
-    if (inst != ""){
+    let fD = new FormData();
+    if (inst != "" && document.querySelector("input.groups").value == "" && document.querySelector("datalist#groups").childElementCount == 0){
+        document.querySelector("input.groups").value ="";
+            fD.append("instID", instID); 
+            fD.append("inst", institution);
+        
+        
         datalist.innerHTML = "";
-        fetch('/php/fetchgroups.php')
+        fetch('/php/fetchgroups.php', {
+            body: fD,
+            method: "POST"
+        })
         .then((res)=>{
             return res.json();
         })
@@ -175,7 +181,8 @@ function fetchGroups(){
             datalist.innerHTML = "";
             groups.forEach(g => {     
                 let option = document.createElement("option");
-                option.setAttribute("value", g);
+                option.setAttribute("value", g[0]);
+                option.setAttribute("data-id", g[1]);
                 datalist.appendChild(option);
                 return
             })
@@ -212,3 +219,54 @@ function unlog(){
     	location.reload();
     },300);
 }	
+
+function changegroup(role, instID){
+    let wnd = openCtxWnd("Сменить группу");
+
+    let div = wnd.appendChild(document.createElement("div"));
+    div.innerHTML = `
+            <label>
+                Учебное заведение
+                <input list="inst" name="inst" class="inst" onmouseover="fetchInst()" ${role>50 ? "" : "disabled"} onchange="(function(){
+                    let datalist = document.querySelector('datalist#groups');
+                    while (datalist.firstChild) {
+                        datalist.removeChild(datalist.lastChild);
+                      }
+                   document.querySelector('input.groups').value = '';
+                   fetchGroups();
+                })()">
+                <datalist id="inst"></datalist>
+            </label>
+            <label>
+                Группа
+                <input list="groups" name="group" placeholder="Поиск.." class="groups" onmouseover="fetchGroups(${instID})">
+                <datalist id="groups"></datalist>
+            </label>
+            <button style="position: relative; left: 50%; transform: translateX(-50%)" onclick='changegroupOnServer()'>Подтвердить</button>
+    `;
+}
+
+function changegroupOnServer (){
+    let inputGroup = document.querySelector('input[name="group"]');
+    let datalist = document.querySelector('datalist#groups');
+    let groupID = 0;
+    let fd = new FormData();
+
+    datalist.childNodes.forEach(option => {
+        if (option.value == inputGroup.value){
+            groupID = option.dataset.id;
+        }
+    });
+    fd.append("groupID", groupID);
+
+    fetch('/php/changegroup.php', {
+        method: "POST",
+        body: fd
+    }).then((res)=>{
+        console.log(res.text());
+    });
+    setTimeout(()=>{
+        document.querySelector('.wnd').close();
+        setTimeout(location.reload(), 250);
+    },200);
+}

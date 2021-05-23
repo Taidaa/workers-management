@@ -11,22 +11,14 @@
 </head>
 
 <body>
-	<div class="color-picker">
-		<label>body-bg
-		<input type="color" oninput="color()">
-		</label>
-		<label>menu-color
-		<input type="color" oninput="color()">
-		</label>
-		<label>highlight-color
-		<input type="color" oninput="color()">
-		</label>
+	<div class="night-mode" style="width:100px;height: 100px; position: absolute; top:0; left: 0; cursor:pointer;z-index: 999;" onclick="switchtheme()">
+		
 		<script type="text/javascript">
 			const pickers = document.querySelectorAll(".color-picker input");
-				function color() {
-					document.body.style.setProperty('--body', pickers[0].value);
-					document.body.style.setProperty('--menu-color', pickers[1].value);
-					document.body.style.setProperty('--highlight-color', pickers[2].value);
+				function switchtheme() {
+						window.document.body.classList.toggle('darkmode');
+						unloadPage();
+						loadPage("page/adminpanel.php", "Админ панель");
 				}
 				
 		</script>
