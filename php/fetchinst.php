@@ -4,7 +4,7 @@
     header("Content-Type: application/json");
 
     $res = $conn->query("
-        SELECT name FROM educational_institution
+        SELECT name, id FROM educational_institution
     ");
 
     echo json_encode($res->fetch_all());

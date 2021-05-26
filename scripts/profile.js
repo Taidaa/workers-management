@@ -150,9 +150,9 @@ function fetchInst(){
         })
         .then((institutions)=>{
             institutions.forEach(inst => {
-                console.log(inst[0]);
                 let option = document.createElement("option");
                 option.setAttribute("value", inst[0]);
+                option.setAttribute("data-id", inst[1]);
                 datalist.appendChild(option);
             });
         })

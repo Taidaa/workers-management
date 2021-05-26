@@ -43,7 +43,7 @@ function openCtxWnd(header = "",code = "")
 
 					// Make window header
 					let head = wnd.appendChild(document.createElement("div"));
-					head.innerHTML = `<div style="position: absolute; top:1%;font-size: 1.5em; font-weight: bold; color: black;">${header}</div>`;
+					head.innerHTML = `<div style="max-width:94%; position: absolute; top:1%;font-size: 1.5em; font-weight: bold; color: black; text-overflow: ellipsis; white-space:nowrap; overflow:hidden">${header}</div>`;
 
 					// Animate opening
 					wnd.style.opacity = 0;

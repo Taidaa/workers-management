@@ -8,6 +8,7 @@
 								FIO, 
 								groups.mark as 'group',
 								groups.id as 'groupID',
+								groups.institutionID as 'instID',
 								roles.name as 'role',
 								roles.id as 'roleID',
 								roles.permissions as 'perms'
@@ -24,6 +25,7 @@
 			$FIO = $res["FIO"];
 			$group = $res["group"];
 			$groupID = $res["groupID"];
+			$instID = $res['instID'];
 			$role = $res["role"];
 			$roleID = $res["roleID"];
 			$permissions = $res["perms"];
@@ -56,7 +58,7 @@
 				if (str_contains($permissions, "manage_all") 	  || 
 				str_contains($permissions, "watch_other_groups") || 
 				str_contains($permissions, "watch_all"))  {
-					echo "<span style='text-decoration: underline; cursor: pointer;' onclick='changegroup({$roleID}, {$groupID})'>$group</span>";
+					echo "<span style='text-decoration: underline; cursor: pointer;' onclick='changegroup({$roleID}, {$instID})'>$group</span>";
 				} else {
 					echo $group;
 				}
